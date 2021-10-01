@@ -83,7 +83,7 @@ const AddMetricForm = (props) => {
     
     const clickCloseHandler =()=>{
         // This Function is then called within the parent, to set wether to show, or not show the AddMetricForm
-        props.onCloseAddMetircForm()
+        props.onClose()
     }
 
     // ------------------------------------------------------------------------

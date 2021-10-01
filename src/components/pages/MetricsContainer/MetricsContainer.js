@@ -46,7 +46,7 @@ const MetricsContainer = () => {
     return (
         <div className="metric-container">
             {showChangeMetric && <ChangeMetric currentMetricTitle={currentMetricTitle} initialMetricScore={currentMetricScore} onClose={closeClickHandler}/>}
-            {showAddMetricForm && <AddMetricForm onCloseAddMetircForm={closeAddMetircFormHandler}/>}
+            {showAddMetricForm && <AddMetricForm onClose={closeAddMetircFormHandler}/>}
             <AddedMetricsList showAddMetricForm={showAddMetricForm} onClickMetric={onClickMetric} onClickNew={onClcikNewHandler}/>
         </div>
     )
