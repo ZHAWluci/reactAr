@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import MetricsWrapper from '../../atoms/MetricsWrapper/MetricsWrapper'
 import "./AddMetricForm.scss"
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { metricActions } from '../../../store/metrics-slice'
 import Close from '../../atoms/Close/Close'
 
@@ -12,18 +12,37 @@ const AddMetricForm = (props) => {
     const dispatch = useDispatch()
 
     // ------------------------------------------------------------------------
-    // Listening to Inputs & Basic Validation
+    // Get Metrics from store
     // ------------------------------------------------------------------------
-    const [enteredTitle, setEnteredTitle] = useState('')
-    const [enteredTitleTouched, setEnteredTitleTouched] = useState(false)
-    const [enteredTitleHasError, setEnteredTitleHasError] = useState(false)
+    const metrics = useSelector(state => state.metrics)
+
+    // ------------------------------------------------------------------------
+    // States
+    // ------------------------------------------------------------------------
+    const [enteredMetricTitle, setEnteredMetricTitle] = useState('')
+    const [enteredMetricTitleTouched, setEnteredMetricTitleTouched] = useState(false)
+    const [enteredMetricTitleExists, setEnteredMetricTitleExists] = useState(false)
     
+    // ------------------------------------------------------------------------
+    // Validation
+    // ------------------------------------------------------------------------
+
+    // Check wether the enteredTitle already exists inside the redux store    
+    const enteredMetricTitleIsValid = enteredMetricTitle.trim() !== '' && !enteredMetricTitleExists
+    const enteredMetricTitleHasError = !enteredMetricTitleIsValid && enteredMetricTitleTouched
+
+    // ------------------------------------------------------------------------
+    // Listening to Input and Blur
+    // ------------------------------------------------------------------------
+
     const inputChangeHandler = (event)=>{
-        setEnteredTitle(event.target.value)
+        setEnteredMetricTitleExists(false)
+        setEnteredMetricTitle(event.target.value)
     }
 
+
     const inputBlurHandler = ()=>{
-        setEnteredTitleTouched(true)
+        setEnteredMetricTitleTouched(true)
     }
 
     // ------------------------------------------------------------------------
@@ -32,20 +51,29 @@ const AddMetricForm = (props) => {
 
     const clickAddHandler = ()=>{
         
-        // Validation
-        if(enteredTitle.trim() === ''){
-            return
-        } 
+        // Check wether the entered Metric Exists 
+        // Explanation of Code:
+        // For each metric.title we check wether the enteredMetric exists and return them 
+        // in an array. With includes we check wether that array has a true. If it does
+        // that means that the map function found a metric.title that was the same
+        // as the enteredMetricTitle. We check this when submitting and not while typing
+        // to be more performant
 
+        if(metrics.map((metric)=> metric.title === enteredMetricTitle).includes(true)){
+            setEnteredMetricTitleExists(true)
+            return
+        }
+        
         // Add the new metric to the redux store
         dispatch(metricActions.addMetric({
-            title: enteredTitle,
+            title: enteredMetricTitle,
             score: "0",
         }))
 
         // Resest the entered title
-        setEnteredTitle('')
-        setEnteredTitleTouched(false)
+        setEnteredMetricTitle('')
+        setEnteredMetricTitleTouched(false)
+        setEnteredMetricTitleExists(false)
     }   
 
     // ------------------------------------------------------------------------
@@ -58,21 +86,26 @@ const AddMetricForm = (props) => {
         props.onCloseAddMetircForm()
     }
 
+    // ------------------------------------------------------------------------
+    //  JSX Returns
+    // ------------------------------------------------------------------------
+
     return (
             <MetricsWrapper className="metric-form__container">
                 <h3 className="metric-form__title">Add Metric</h3>
                 <Close onClick={clickCloseHandler}/>
                 <div className="metric-form__add">
-                    {enteredTitleHasError && <p className="metric-form__add-input--error-text"></p>}
                     <input 
                         onChange={inputChangeHandler}
                         onBlur={inputBlurHandler}
                         type="text" 
-                        className="metric-form__add-input" 
+                        className= {`metric-form__add-input ${enteredMetricTitleHasError  && 'metric-form__add-input--error'}`}
                         id="metric-form__add-input" 
                         placeholder="Metrics" 
-                        value={enteredTitle}/>
-                    <label htmlFor="metric-form__add-input" className="metric-form__add-label">Metric Name</label>
+                        autoComplete="off"
+                        value={enteredMetricTitle}/>
+                    {!enteredMetricTitleExists && <label htmlFor="metric-form__add-input" className="metric-form__add-label">Metric Name</label>}
+                    {enteredMetricTitleExists &&  <p className="metric-form__add-error" >This Metric Name already exists</p>}
                     <button onClick={clickAddHandler} className="metric-form__add-button">Add</button>
                 </div>
             </MetricsWrapper>

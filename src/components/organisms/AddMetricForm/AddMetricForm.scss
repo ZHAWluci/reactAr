@@ -37,6 +37,11 @@
     color: white;
     font-size: 1rem;
     text-shadow: 0 0 0.125rem rgba(0,0,0,0.5);
+    
+    &--error{
+        box-shadow: 0 0 1rem red;
+        border: 0.125rem solid red;
+    }
 
     &:focus{
         outline: none;
@@ -70,6 +75,13 @@
         transform: scale(0.9) translate(0.2rem, 2.7rem);
     
     }
+}
+
+.metric-form__add-error{
+    color: red;
+    font-size: 0.9rem;
+    padding-left: 1.1rem;
+    padding-top: 0.2rem;
 }
 
 .metric-form__add-button{
