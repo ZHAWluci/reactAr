@@ -37,7 +37,7 @@ const ArComponent = () => {
     // ------------------------------------------------------------------------
     // Active Pattern State
     // ------------------------------------------------------------------------
-    const [activePattern, setActivePattern] = useState('')
+    const [activeFileName, setActiveFileName] = useState('')
 
     // ------------------------------------------------------------------------
     // Init Canvas | The Canvas has to be initalized outside the useEffect() 
@@ -187,7 +187,7 @@ const ArComponent = () => {
           let patternUrl = event.target.parameters.patternUrl
           let patternNameArray = patternUrl.split("/")
           let patternName = patternNameArray[patternNameArray.length -1].split(".")[0]
-          setActivePattern(patternName)
+          setActiveFileName(patternName)
       })
     }
 
@@ -223,7 +223,7 @@ const ArComponent = () => {
     
     return (
         <React.Fragment>
-            <MetricsContainer activeCard={activePattern} />
+            <MetricsContainer activeCard={activeFileName} />
             <canvas ref={canvas}></canvas>
         </React.Fragment>
         
