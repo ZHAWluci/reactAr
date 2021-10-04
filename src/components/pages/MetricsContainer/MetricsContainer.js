@@ -26,18 +26,18 @@ const MetricsContainer = (props) => {
     // So that the displayed Title does not have to be the file name, the to be
     // displayed card titles can be chosen within the cardTitle array. 
     const cardTitles = useMemo(()=>[
-        "Title 1",
-        "Title 2",
-        "Title 3",
-        "Title 4",
-        "Title 5",
-        "Title 6",
-        "Title 7",
-        "Title 8",
-        "Title 9",
-        "Title 10",
-        "Title 11",
-        "Title 12"
+        "IOT",
+        "Big Data and Analytics",
+        "Cloud Computing",
+        "Cybersecurity",
+        "Cobots",
+        "Augmented Reality",
+        "Virtual Reality",
+        "Digital Twin",
+        "Predictive Maintenance",
+        "Additive Manufacturing",
+        "Simulation",
+        "Online Shop"
     ],[])
 
     const fileNames = useMemo(()=>[
@@ -111,6 +111,7 @@ const MetricsContainer = (props) => {
     return (
         <div className="metric-container">
             {showScannedCard && <ScannedCard cardName={currentCardTitle} onClick={scannedCardClickHandler}/>}
+            {!showScannedCard && <h1 className="metric-container__card-title">{currentCardTitle}</h1>}
             {(showChangeMetric && !showScannedCard) && <ChangeMetric currentMetricTitle={currentMetricTitle} initialMetricScore={currentMetricScore} onClose={closeClickHandler}/>}
             {(showAddMetricForm && !showScannedCard) && <AddMetricForm onClose={closeAddMetircFormHandler}/>}
             {(!showScannedCard && showAddedMetricList) && <AddedMetricsList showAddMetricForm={showAddMetricForm} onClickMetric={onClickMetric} onClickNew={onClcikNewHandler}/>}

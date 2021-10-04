@@ -59,15 +59,15 @@ const AddMetricForm = (props) => {
         // as the enteredMetricTitle. We check this when submitting and not while typing
         // to be more performant
 
-        if(metrics.map((metric)=> metric.title === enteredMetricTitle).includes(true)){
+        if(metrics.map((metric)=> metric.metricTitle === enteredMetricTitle).includes(true)){
             setEnteredMetricTitleExists(true)
             return
         }
         
         // Add the new metric to the redux store
         dispatch(metricActions.addMetric({
-            title: enteredMetricTitle,
-            score: "0",
+            metricTitle: enteredMetricTitle,
+            metricScore: "0",
         }))
 
         // Resest the entered title

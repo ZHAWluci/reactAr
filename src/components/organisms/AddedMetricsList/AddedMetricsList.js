@@ -8,8 +8,8 @@ import { useSelector } from 'react-redux';
 const AddedMetricsList = (props) => {
     const metrics = useSelector(state => state.metrics)
     
-    const metricClickHandler =(title,score)=>{
-        props.onClickMetric(title,score)
+    const metricClickHandler =(metricTitle,metricScore)=>{
+        props.onClickMetric(metricTitle,metricScore)
     }
 
     const addNewMetricClickHandler = ()=>{
@@ -21,12 +21,12 @@ const AddedMetricsList = (props) => {
             {metrics.map((metric)=>(
                 <AddedMetric 
                     onClick={metricClickHandler}
-                    title={metric.title}
-                    score={metric.score}
+                    metricTitle={metric.metricTitle}
+                    metricScore={metric.metricScore}
                     key={Math.random()}
                 />
             ))}
-            {!props.showAddMetricForm && <AddedMetric onClick={addNewMetricClickHandler} title="Add" score="+"/>}
+            {!props.showAddMetricForm && <AddedMetric onClick={addNewMetricClickHandler} metricTitle="Add" metricScore="+"/>}
         </MetricsWrapper>
     )
 }

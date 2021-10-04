@@ -17,13 +17,13 @@ const metricSlice = createSlice({
     reducers: {
         addMetric(state,action){
             state.push({
-                title: action.payload.title,
-                score: 0,
+                metricTitle: action.payload.metricTitle,
+                metricScore: 0,
             })
         },
         updateMetricScore(state,action){
-            const indexOfMetric = state.findIndex((metric) => metric.title === action.payload.title)
-            state[indexOfMetric].score = action.payload.score 
+            const indexOfMetric = state.findIndex((metric) => metric.metricTitle === action.payload.metricTitle)
+            state[indexOfMetric].metricScore = action.payload.metricScore 
         }
     }
 })
