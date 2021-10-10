@@ -34,7 +34,10 @@ const ChangeMetric = (props) => {
     const dispatch = useDispatch()
     
     const sliderStopHandler = (sliderValue) =>{
-        dispatch(metricActions.updateMetricScore({metricScore: sliderValue, metricTitle: currentMetricTitle}))
+        dispatch(metricActions.updateMetricScore({
+            metricScore: sliderValue, 
+            metricTitle: currentMetricTitle
+        }))
     }
 
 

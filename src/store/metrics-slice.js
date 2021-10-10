@@ -15,14 +15,31 @@ const metricSlice = createSlice({
     name:'metric',
     initialState:[],
     reducers: {
-        addMetric(state,action){
+        addCard(state,action){
+            // The new card is simply pushed into the inital array
+            // The card object itself is already prepared to have an
+            // emptry metric array. 
             state.push({
+                cardTitle: action.payload.cardTitle,
+                metrics: [],
+            })
+        },
+        addMetric(state,action){
+            // In order to add a new Metric to the current active Card,
+            // first we find the index of where that card is placed in the array.
+            // Then we push the new metric into 
+            const indexOfCard = state.findIndex((card)=> card.cardTitle === action.payload.cardTitle)
+            state[indexOfCard].metrics.push({
                 metricTitle: action.payload.metricTitle,
                 metricScore: 0,
             })
         },
         updateMetricScore(state,action){
-            const indexOfMetric = state.findIndex((metric) => metric.metricTitle === action.payload.metricTitle)
+            // In order to update the score of a metric of the current active card
+            // we find the index of that card and go into the metric array. After that we 
+            // find the index of the metric where we wantto update the score
+            const indexOfCard = state.findIndex((card)=> card.cardTitle === action.payload.cardTitle)
+            const indexOfMetric = state[indexOfCard].metrics.findIndex((metric) => metric.metricTitle === action.payload.metricTitle)
             state[indexOfMetric].metricScore = action.payload.metricScore 
         }
     }
