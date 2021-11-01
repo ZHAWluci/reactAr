@@ -11,8 +11,8 @@ import { createSlice } from "@reduxjs/toolkit"
 // ------------------------------------------------------------------------
 
 
-const metricSlice = createSlice({
-    name:'metric',
+const cardSlice = createSlice({
+    name:'card',
     initialState:[],
     reducers: {
         addCard(state,action){
@@ -21,6 +21,7 @@ const metricSlice = createSlice({
             // emptry metric array. 
             state.push({
                 cardTitle: action.payload.cardTitle,
+                // cardTitle: "action.payload.cardTitle",
                 metrics: [],
             })
         },
@@ -40,7 +41,7 @@ const metricSlice = createSlice({
             // find the index of the metric where we wantto update the score
             const indexOfCard = state.findIndex((card)=> card.cardTitle === action.payload.cardTitle)
             const indexOfMetric = state[indexOfCard].metrics.findIndex((metric) => metric.metricTitle === action.payload.metricTitle)
-            state[indexOfMetric].metricScore = action.payload.metricScore 
+            state[indexOfCard].metrics[indexOfMetric].metricScore = action.payload.metricScore 
         }
     }
 })
@@ -50,5 +51,5 @@ const metricSlice = createSlice({
 // Exports
 // ------------------------------------------------------------------------
 
-export const metricActions = metricSlice.actions
-export default metricSlice
+export const cardActions = cardSlice.actions
+export default cardSlice

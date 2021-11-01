@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
-import { metricActions } from '../../../store/metrics-slice'
+import { cardActions } from '../../../store/card-slice'
 import './ChangeMetric.scss'
 import MetricsWrapper from '../../atoms/MetricsWrapper/MetricsWrapper'
 import Slider from '../../molecules/Slider/Slider'
@@ -12,7 +12,7 @@ const ChangeMetric = (props) => {
     // Variables & States
     // ------------------------------------------------------------------------
     const [currentMetricScore, setCurrentMetricScore] = useState(0)   
-    const { currentMetricTitle, initialMetricScore } = props
+    const { currentMetricTitle, initialMetricScore, currentCardTitle } = props
 
     // ------------------------------------------------------------------------
     // Handle Inital Score Value & Score Changes
@@ -34,9 +34,10 @@ const ChangeMetric = (props) => {
     const dispatch = useDispatch()
     
     const sliderStopHandler = (sliderValue) =>{
-        dispatch(metricActions.updateMetricScore({
+        dispatch(cardActions.updateMetricScore({
             metricScore: sliderValue, 
-            metricTitle: currentMetricTitle
+            metricTitle: currentMetricTitle,
+            cardTitle: currentCardTitle,
         }))
     }
 

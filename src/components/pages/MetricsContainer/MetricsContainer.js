@@ -1,4 +1,6 @@
 import React, {useState, useEffect, useMemo} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { cardActions } from '../../../store/card-slice'
 
 import AddMetricForm from '../../organisms/AddMetricForm/AddMetricForm'
 import AddedMetricsList from '../../organisms/AddedMetricsList/AddedMetricsList'
@@ -7,6 +9,13 @@ import ScannedCard from '../../atoms/ScannedCard/ScannedCardButton'
 import './MetricsContainer.scss'
 
 const MetricsContainer = (props) => {
+    // ------------------------------------------------------------------------
+    // States
+    // ------------------------------------------------------------------------
+    const dispatch = useDispatch()
+    const cards = useSelector((state)=> state.cards)
+
+
     // ------------------------------------------------------------------------
     // States
     // ------------------------------------------------------------------------
@@ -78,6 +87,17 @@ const MetricsContainer = (props) => {
         setShowAddedMetricList(true)
         setShowScannedCard(false)
         setShowChangeMetric(false)
+
+        // If the card already exsits don't add it again
+        // To this, I'm using the find method. If the card is found, it will return 
+        // the value of that card. However, if the card isn't found it will return an
+        // undefined. Hence, I'm using the negation of cards.find((card)=> card.cardTitle === currentCardTitle
+        // so that if the card already exists, the dispatch will be skipped. 
+        if(!(cards.find((card)=> card.cardTitle === currentCardTitle))){
+            dispatch(cardActions.addCard({
+                cardTitle: currentCardTitle
+            }))
+        }
     }
     
     // ------------------------------------------------------------------------
@@ -112,9 +132,9 @@ const MetricsContainer = (props) => {
         <div className="metric-container">
             {showScannedCard && <ScannedCard cardName={currentCardTitle} onClick={scannedCardClickHandler}/>}
             {!showScannedCard && <h1 className="metric-container__card-title">{currentCardTitle}</h1>}
-            {(showChangeMetric && !showScannedCard) && <ChangeMetric currentMetricTitle={currentMetricTitle} initialMetricScore={currentMetricScore} onClose={closeClickHandler}/>}
-            {(showAddMetricForm && !showScannedCard) && <AddMetricForm onClose={closeAddMetircFormHandler}/>}
-            {(!showScannedCard && showAddedMetricList) && <AddedMetricsList showAddMetricForm={showAddMetricForm} onClickMetric={onClickMetric} onClickNew={onClcikNewHandler}/>}
+            {(showChangeMetric && !showScannedCard) && <ChangeMetric currentCardTitle={currentCardTitle} currentMetricTitle={currentMetricTitle} initialMetricScore={currentMetricScore} onClose={closeClickHandler}/>}
+            {(showAddMetricForm && !showScannedCard) && <AddMetricForm onClose={closeAddMetircFormHandler} currentCardTitle={currentCardTitle}/>}
+            {(!showScannedCard && showAddedMetricList) && <AddedMetricsList currentCardTitle={currentCardTitle} showAddMetricForm={showAddMetricForm} onClickMetric={onClickMetric} onClickNew={onClcikNewHandler}/>}
         </div>
     )
 }

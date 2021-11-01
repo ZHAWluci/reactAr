@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import metricSlice from "./metrics-slice";
+import cardSlice from "./card-slice";
 
 const store = configureStore({
-    reducer:{metrics: metricSlice.reducer}
+    reducer:{cards: cardSlice.reducer}
 })
 
 export default store
