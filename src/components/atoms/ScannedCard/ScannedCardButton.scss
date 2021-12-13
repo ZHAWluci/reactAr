@@ -1,0 +1,23 @@
+.scanned-card__button{
+    height: 10rem;
+    width: 10rem;
+    
+    border: 0.125rem solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+
+    cursor: pointer;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 300;
+
+    box-shadow: 0 0 0.25rem rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    
+    background: rgba(67, 67, 201, 0.25);
+
+    transition: transform 0.2s ease-in-out;
+    &:hover{
+        transform: scale(1.1);
+    }
+}
