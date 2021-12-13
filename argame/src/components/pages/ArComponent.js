@@ -19,7 +19,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 // ------------------------------------------------------------------------
 
 const ArComponent = () => {
-    
+    // NEw comment
     // ------------------------------------------------------------------------
     // Init Canvas | The Canvas has to be initalized outside the useEffect() 
     // hook since useRef() is a hook itself.
