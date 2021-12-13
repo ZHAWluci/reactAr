@@ -133,7 +133,6 @@ const ArComponent = () => {
     // ------------------------------------------------------------------------
     const gltfLoader = new GLTFLoader()
 
-    // This is a comment on line 136 for Zaniyar
     let marker = new Marker('MarkerX', 1, scene, arToolkitContext, ()=>{console.log("This is setActive Maker")}, false)
     gltfLoader.load(
       FactoryModel,
