@@ -19,7 +19,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 // ------------------------------------------------------------------------
 
 const ArComponent = () => {
-    // NEw comment
+
     // ------------------------------------------------------------------------
     // Init Canvas | The Canvas has to be initalized outside the useEffect() 
     // hook since useRef() is a hook itself.
@@ -133,7 +133,7 @@ const ArComponent = () => {
     // ------------------------------------------------------------------------
     const gltfLoader = new GLTFLoader()
 
-
+    // This is a comment on line 136 for Zaniyar
     let marker = new Marker('MarkerX', 1, scene, arToolkitContext, ()=>{console.log("This is setActive Maker")}, false)
     gltfLoader.load(
       FactoryModel,
